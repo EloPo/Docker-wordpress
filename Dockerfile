@@ -1,33 +1,39 @@
 FROM debian:9.0
 
-LABEL maintainer="eloisa.potrich@rivendel.com.br"
+LABEL Eloisa Potrich <eloisa.potrich@rivendel.com.br>
 
-RUN apt-get update
-RUN apt-get install -y nginx
-RUN apt-get install -y php
-RUN apt-get install -y supervisor
-RUN apt-get clean
+RUN apt-get update && apt-get install -y \
+		nginx \
+		php7.0 \
+  	php7.0-dev \
+  	php7.0-fpm \
+  	php7.0-json \
+  	php7.0-mysql \
+  	php7.0-mcrypt \
+  	php7.0-common \
+  	php7.0-opcache \
+  	php7.0-readline \
+  	php7.0-gd \
+  	php7.0-xml \
+  	php7.0-zip \
+  	php7.0-curl \
+  	php7.0-cli \
+  	libapache2-mod-php7.0 \
+		supervisor \
+		&& apt-get clean
 
-# RUN openssl req -newkey rsa:2048 -nodes -keyout exemplo.com.key -out exemplo.com.csr && cat ca_exemplo1.crt ca_exemplo2.crt ca_exemplo3.crt > intermediate.crt
 
-COPY ./config/php.ini /etc/php/${PHP_VER}/fpm/conf.d/zzz-custom.ini
-COPY ./config/php-fpm.conf /etc/php/${PHP_VER}/fpm/pool.d/zzz-custom.conf
-COPY ./config/nginx-main.conf /etc/nginx/nginx.conf
-COPY ./config/nginx-host.conf /etc/nginx/conf.d/default.conf
-COPY ./config/wordpress.conf /etc/wordpress/conf.d/wordpress.conf
+# Certificado para o wordpress
+# RUN openssl genrsa -out client.key 4096 && openssl req -new -x509 -text -key client.key -out client.cert
+# RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+# RUN update-ca-certificates
+# Copiando o certificado gerado para uma pasta especifica 
+# COPY ./mycert.crt /usr/local/share/ca-certificates/mycert.crt
+
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-ADD ./wordpress-5.2.2-pt_BR.zip /var/www
-
-
-VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
-VOLUME ["/etc/supervisor/conf.d"]
-VOLUME /etc/ssl/certs/wordpress/
-VOLUME /etc/ssl/private/wordpress/
-
-WORKDIR /etc/nginx
-WORKDIR /etc/supervisor/conf.d
+ADD wordpress-5.2.2-pt_BR.zip /var/www
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
