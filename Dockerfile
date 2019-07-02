@@ -20,12 +20,12 @@ RUN apt-get update && apt-get install -y \
   	php7.0-curl \
   	php7.0-cli \
   	libapache2-mod-php7.0 \
-	supervisor \
+		# supervisor \
 	openssl \
 	&& apt-get clean
 
 
-COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ADD wordpress-5.2.2-pt_BR.zip /var/www
 
@@ -33,4 +33,5 @@ EXPOSE 80
 
 ENTRYPOINT ["openssl"]
 
+# CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 CMD service php7.0-fpm start && nginx -g
