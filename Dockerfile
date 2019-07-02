@@ -3,9 +3,9 @@ FROM debian:9.0
 LABEL Eloisa Potrich <eloisa.potrich@rivendel.com.br>
 
 RUN apt-get update && apt-get install -y \
-	curl \
-	nginx \
-	php7.0 \
+		curl \
+		nginx \
+		php7.0 \
   	php7.0-dev \
   	php7.0-fpm \
   	php7.0-json \
@@ -21,17 +21,17 @@ RUN apt-get update && apt-get install -y \
   	php7.0-cli \
   	libapache2-mod-php7.0 \
 		# supervisor \
-	openssl \
-	&& apt-get clean
+		openssl \
+		&& apt-get clean
 
+RUN apt-get install python-pip -y
+# Supervisor Config
+COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
+# Install Wordpress
 ADD wordpress-5.2.2-pt_BR.zip /var/www
 
+# private expose
 EXPOSE 80
 
-ENTRYPOINT ["openssl"]
-
-# CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-CMD service php7.0-fpm start && nginx -g
+CMD ["/bin/bash", "/start.sh"]
