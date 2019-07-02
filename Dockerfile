@@ -33,4 +33,4 @@ EXPOSE 80
 
 ENTRYPOINT ["openssl"]
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD service php7.0-fpm start && nginx -g
