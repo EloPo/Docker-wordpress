@@ -34,4 +34,4 @@ ADD wordpress-5.2.2-pt_BR.zip /var/www
 # private expose
 EXPOSE 80
 
-CMD ["/bin/bash", "/start.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
