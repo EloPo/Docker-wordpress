@@ -3,9 +3,9 @@ FROM debian:9.0
 LABEL Eloisa Potrich <eloisa.potrich@rivendel.com.br>
 
 RUN apt-get update && apt-get install -y \
-		curl \
-		nginx \
-		php7.0 \
+	curl \
+	nginx \
+	php7.0 \
   	php7.0-dev \
   	php7.0-fpm \
   	php7.0-json \
@@ -20,9 +20,9 @@ RUN apt-get update && apt-get install -y \
   	php7.0-curl \
   	php7.0-cli \
   	libapache2-mod-php7.0 \
-		# supervisor \
-		openssl \
-		&& apt-get clean
+	supervisor \
+	openssl \
+	&& apt-get clean
 
 RUN apt-get install python-pip -y
 # Supervisor Config
