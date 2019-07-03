@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get install python-pip -y
 # Supervisor Config
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./config/wordpress.conf /etc/wordpress/conf.d/wordpress.conf
 
 # Install Wordpress
 ADD wordpress-5.2.2-pt_BR.zip /var/www
