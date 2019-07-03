@@ -20,19 +20,18 @@ RUN apt-get update && apt-get install -y \
   	php7.0-curl \
   	php7.0-cli \
   	libapache2-mod-php7.0 \
+	python-pip \
 	supervisor \
 	openssl \
 	&& apt-get clean
 
-RUN apt-get install python-pip -y
-# Supervisor Config
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY ./config/wordpress.conf /etc/wordpress/conf.d/wordpress.conf
 
-# Install Wordpress
 ADD wordpress-5.2.2-pt_BR.zip /var/www
+ADD ./deployStack.sh /deployStack.sh
 
-# private expose
+ENTRYPOINT ["openssl"]
+
 EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
