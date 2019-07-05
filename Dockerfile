@@ -24,8 +24,8 @@ RUN apt-get update && apt-get install -y \
 		supervisor \
 		&& apt-get clean
 
-COPY ./info.php /etc/php/info.php
-COPY ./config/nginx.conf /etc/nginx/nginx.conf
+# COPY ./info.php /etc/php/info.php
+# COPY ./config/nginx.conf /etc/nginx/nginx.conf
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ADD wordpress-5.2.2-pt_BR.zip /var/www
