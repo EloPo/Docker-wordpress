@@ -30,6 +30,6 @@ COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ADD wordpress-5.2.2-pt_BR.zip /var/www
 
-EXPOSE 80
+EXPOSE 80 443 9000
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
