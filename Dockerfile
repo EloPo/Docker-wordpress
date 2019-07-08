@@ -4,7 +4,9 @@ LABEL Eloisa Potrich <eloisa.potrich@rivendel.com.br>
 
 RUN apt-get update && apt-get install -y \
 		curl \
-		nginx \
+		nginx 
+
+RUN apt-get install -y \
 		php7.0 \
   	php7.0-dev \
   	php7.0-fpm \
@@ -19,7 +21,9 @@ RUN apt-get update && apt-get install -y \
   	php7.0-zip \
   	php7.0-curl \
   	php7.0-cli \
-  	libapache2-mod-php7.0 \
+  	libapache2-mod-php7.0
+
+RUN apt-get install -y \
 		python-pip \
 		supervisor \
 		&& apt-get clean
