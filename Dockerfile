@@ -20,15 +20,13 @@ RUN apt-get install -y \
   	php7.0-xml \
   	php7.0-zip \
   	php7.0-curl \
-  	php7.0-cli \
-  	libapache2-mod-php7.0
+  	php7.0-cli 
 
-RUN apt-get install -y \
-		python-pip \
-		supervisor \
-		&& apt-get clean
+RUN apt-get install -y supervisor && apt-get clean
 
-# COPY ./config/nginx.conf /etc/nginx/nginx.conf
+COPY ./config/php.ini /etc/php/7.0/fpm/php.ini
+COPY ./config/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
+COPY ./config/nginx.conf /etc/init.d/nginx.conf
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ADD wordpress-5.2.2-pt_BR.zip /var/www
