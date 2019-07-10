@@ -15,7 +15,7 @@ services:
    wordpress:
      depends_on:
        - db
-     image: eloisapotrich1/wordpress:2.8
+     image: eloisapotrich1/wordpress:2.27
      ports:
        - "8090:80"
      restart: always

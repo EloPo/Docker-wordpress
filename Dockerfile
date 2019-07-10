@@ -23,13 +23,17 @@ RUN apt-get install -y \
   	php7.0-cli 
 
 RUN apt-get install -y supervisor && apt-get clean
+RUN mkdir /run/php
 
-COPY ./config/php.ini /etc/php/7.0/fpm/php.ini
-COPY ./config/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
-COPY ./config/nginx.conf /etc/init.d/nginx.conf
+COPY ./config/wordpress.conf /etc/nginx/conf.d/wordpress.conf
+COPY ./config/php.ini /etc/php/7.0/fpm/conf.d/zzz.ini
+COPY ./config/php-fpm.conf /etc/php/7.0/fpm/pool.d/zzz-fpm.conf
+COPY ./config/nginx.conf /etc/nginx/conf.d/nginx.conf
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-ADD wordpress-5.2.2-pt_BR.zip /var/www
+COPY ./wordpress /var/www/
+
+# ADD wordpress-5.2.2-pt_BR.zip /var/www
 
 EXPOSE 80
 
