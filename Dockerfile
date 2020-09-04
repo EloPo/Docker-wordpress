@@ -1,6 +1,6 @@
 FROM debian:9.0
 
-LABEL Eloisa Potrich <eloisa.potrich@rivendel.com.br>
+LABEL Eloisa Potrich
 
 RUN apt-get update && apt-get install -y \
 		curl \
